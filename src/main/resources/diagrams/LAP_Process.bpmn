@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="LAP_Process" name="Leave Approval Process" isExecutable="true">
+    <documentation>Leave Approval Process</documentation>
+    <startEvent id="Approval_Process" name="Leave Approval Process" activiti:initiator="Kermit">
+      <documentation>Approval Process for human activiti test</documentation>
+      <extensionElements>
+        <activiti:formProperty id="REQ_ID" name="Request Id" type="long" variable="requestId"/>
+        <activiti:formProperty id="REQ_DATE" name="Request Date" type="date" variable="requestDate" datePattern="MM-dd-yyyy hh:mm"/>
+        <activiti:formProperty id="TO_DATE" name="To Date" type="date" variable="toDate" datePattern="MM-dd-yyyy hh:mm" required="true"/>
+        <activiti:formProperty id="FROM_DATE" name="From Date" type="date" variable="fromDate" datePattern="MM-dd-yyyy hh:mm" required="true"/>
+      </extensionElements>
+    </startEvent>
+    <userTask id="Review_Form" name="Leave Review Form" default="sid-3DA0E714-0A49-43DD-93F2-F210FC9C394F" activiti:assignee="Kermit" activiti:candidateUsers="Jeetendra" activiti:formKey="REV_FORM" activiti:priority="1">
+      <documentation>Review Leave Request Form</documentation>
+      <extensionElements>
+        <activiti:formProperty id="REQ_ID" name="Request Id" type="long" variable="requestId" required="true"/>
+        <activiti:formProperty id="REQ_DATE" name="Request Date" type="date" variable="requestDate" datePattern="MM-dd-yyyy hh:mm"/>
+        <activiti:formProperty id="FROM_DATE" name="From Date" type="date" variable="fromDate" datePattern="MM-dd-yyyy hh:mm" required="true"/>
+        <activiti:formProperty id="TO_DATE" name="To Date" type="date" variable="toDate" datePattern="MM-dd-yyyy hh:mm" required="true"/>
+      </extensionElements>
+    </userTask>
+    <userTask id="Approval_Form" name="Leave Approval Form" default="sid-A9137398-6A8D-42F4-A116-1601DC228FA8" activiti:assignee="Jeetendra" activiti:candidateUsers="Kermit" activiti:formKey="APPR_FORM" activiti:priority="1">
+      <documentation>Leave Approval Form</documentation>
+      <extensionElements>
+        <activiti:formProperty id="REQ_ID" name="Request Id" type="long" variable="requestId" required="true"/>
+        <activiti:formProperty id="REQ_DATE" name="Request Date" type="date" variable="requestDate" datePattern="MM-dd-yyyy hh:mm" required="true"/>
+        <activiti:formProperty id="FROM_DATE" name="From Date" type="date" variable="fromDate" datePattern="MM-dd-yyyy hh:mm" required="true"/>
+        <activiti:formProperty id="TO_DATE" name="To Date" type="date" variable="toDate" datePattern="MM-dd-yyyy hh:mm" required="true"/>
+      </extensionElements>
+    </userTask>
+    <endEvent id="sid-7A5CB25D-AFB3-4D98-BACB-647E782C8D9F"/>
+    <sequenceFlow id="sid-3DA0E714-0A49-43DD-93F2-F210FC9C394F" sourceRef="Review_Form" targetRef="Approval_Form"/>
+    <sequenceFlow id="sid-A9137398-6A8D-42F4-A116-1601DC228FA8" sourceRef="Approval_Form" targetRef="sid-7A5CB25D-AFB3-4D98-BACB-647E782C8D9F"/>
+    <sequenceFlow id="sid-EA25CB47-4861-4505-B0A7-EEA45ED123D4" sourceRef="Approval_Process" targetRef="Review_Form"/>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_LAP_Process">
+    <bpmndi:BPMNPlane bpmnElement="LAP_Process" id="BPMNPlane_LAP_Process">
+      <bpmndi:BPMNShape bpmnElement="Approval_Process" id="BPMNShape_Approval_Process">
+        <omgdc:Bounds height="30.0" width="30.0" x="0.0" y="80.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Review_Form" id="BPMNShape_Review_Form">
+        <omgdc:Bounds height="80.0" width="100.0" x="75.0" y="55.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Approval_Form" id="BPMNShape_Approval_Form">
+        <omgdc:Bounds height="80.0" width="100.0" x="220.0" y="55.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-7A5CB25D-AFB3-4D98-BACB-647E782C8D9F" id="BPMNShape_sid-7A5CB25D-AFB3-4D98-BACB-647E782C8D9F">
+        <omgdc:Bounds height="28.0" width="28.0" x="365.0" y="30.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-EA25CB47-4861-4505-B0A7-EEA45ED123D4" id="BPMNEdge_sid-EA25CB47-4861-4505-B0A7-EEA45ED123D4">
+        <omgdi:waypoint x="30.0" y="95.0"/>
+        <omgdi:waypoint x="75.0" y="95.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-3DA0E714-0A49-43DD-93F2-F210FC9C394F" id="BPMNEdge_sid-3DA0E714-0A49-43DD-93F2-F210FC9C394F">
+        <omgdi:waypoint x="175.0" y="95.0"/>
+        <omgdi:waypoint x="220.0" y="95.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-A9137398-6A8D-42F4-A116-1601DC228FA8" id="BPMNEdge_sid-A9137398-6A8D-42F4-A116-1601DC228FA8">
+        <omgdi:waypoint x="320.0" y="95.0"/>
+        <omgdi:waypoint x="379.0" y="95.0"/>
+        <omgdi:waypoint x="379.0" y="58.0"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
